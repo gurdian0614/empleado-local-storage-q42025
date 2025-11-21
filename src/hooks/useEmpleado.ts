@@ -14,7 +14,7 @@ export const useEmpleado = () => {
         localStorage.setItem("empleados", JSON.stringify(empleados));
     }, [empleados]);
 
-    const agregarActualizarEmpleadp = (empleado: Empleado) => {
+    const agregarActualizarEmpleado = (empleado: Empleado): void => {
         if (!empleado.id) {
             empleado.id = String(Date.now());
             setEmpleados((prev) => [empleado, ...prev]);
@@ -32,4 +32,30 @@ export const useEmpleado = () => {
             Swal.fire("Empleado actualizado correctamente", "", "success");
         }
     };
+
+    const eliminarEmpleado = (id: string): void => {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¡No podrás revertir esto!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                setEmpleados(empleados.filter(emp => emp.id !== id));
+                Swal.fire("¡Eliminado!", "El empleado ha sido eliminado", "success");
+            }
+        });
+    }
+
+    return {
+        empleados,
+        empleadoEditar,
+        setEmpleadoEditar,
+        agregarActualizarEmpleado,
+        eliminarEmpleado,
+    }
 };
