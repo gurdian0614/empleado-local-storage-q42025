@@ -4,3 +4,9 @@ export interface Empleado {
     cargo: string;
     departamento: string;
 }
+
+export interface FormularioDatos {
+    nombre: string;
+    cargo: string;
+    departamento: string;
+}
